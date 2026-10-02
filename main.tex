@@ -1,0 +1,182 @@
+\documentclass[12pt, a4paper, oneside]{report}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{vietnamese}
+\usepackage{indentfirst}
+\setlength{\parindent}{1em}
+\usepackage{geometry} 
+\geometry{
+  a4paper,
+  top=2.5cm,
+  bottom=3cm,
+  left=3.5cm,
+  right=2cm
+}
+\usepackage{setspace} 
+\setstretch{1.5}
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+
+\usepackage{amsmath, amssymb, amsthm} 
+\usepackage{mathtools}
+\usepackage{bm} 
+\usepackage{mathrsfs} 
+\usepackage{siunitx}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{booktabs} 
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{multirow}
+
+\newtheoremstyle{mycustomstyle}
+  {\topsep} 
+  {\topsep}  
+  {\normalfont}  
+  {}                 
+  {\bfseries}            
+  {.}      
+  {.5em}    
+  {#1 #2\thmnote{ \mdseries\textit{(#3)}}} 
+
+\theoremstyle{mycustomstyle}
+\newtheorem{definition}{Định nghĩa}[section]
+\newtheorem{remark}[definition]{Nhận xét}
+\newtheorem{proposition}[definition]{Mệnh đề}
+\newtheorem{convention}[definition]{Quy ước}
+\newtheorem{example}[definition]{Ví dụ}
+\newtheorem{corollary}[definition]{Hệ quả}
+\newtheorem{theorem}[definition]{Định lý}
+\newtheorem{postulate}[definition]{Tiên đề}
+
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage[most]{tcolorbox}
+\usepackage{mdframed}
+\usepackage{framed}
+
+\usepackage{xcolor}
+\definecolor{mykeywordcolor}{RGB}{15,129,3}  
+\definecolor{mycommentcolor}{RGB}{199,114,139}
+\definecolor{mybackgroundcolor}{RGB}{245,245,245}
+
+\usepackage{listings}
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{mycommentcolor},
+    backgroundcolor=\color{mybackgroundcolor},
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    showstringspaces=false,
+    literate={á}{{\'a}}1 {à}{{\`a}}1 {ả}{{\h{a}}}1 {ã}{{\~a}}1 {ạ}{{\d{a}}}1,
+    escapeinside=||,
+    extendedchars=true
+}
+
+\usepackage{minted}
+\setminted{
+    linenos=true,
+    breaklines=true,
+    frame=single,
+    framesep=2mm,
+    fontsize=\small,
+    tabsize=4,
+    numbersep=5pt,
+}
+
+\usepackage{hyperref} 
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=cyan,
+    citecolor=blue
+}
+
+\begin{document}
+
+% Gọi file bìa
+\input{cover_page}
+
+\pagestyle{fancy} % Tạo header
+\fancyhead[L]{\itshape \nouppercase{\rightmark}}
+\fancyhead[R]{}
+
+\newpage % Tạo một trang rỗng
+\mbox{}
+\newpage
+
+\chapter*{}
+\begin{center}
+    {\fontsize{20}{24}\selectfont\bfseries LỜI CẢM ƠN}
+\end{center}
+\addcontentsline{toc}{chapter}{Lời cảm ơn}
+\vspace{1cm}
+\input{acknowledgments}
+
+\tableofcontents % Mục lục
+
+\renewcommand{\listfigurename}{Danh sách hình vẽ}
+\listoffigures
+
+\newpage
+\renewcommand{\listtablename}{Danh sách bảng}
+\listoftables
+
+\newpage
+\chapter*{}
+\begin{center}
+    {\fontsize{20}{24}\selectfont\bfseries Danh sách các thuật ngữ viết tắt}
+\end{center}
+\input{List_of_abbreviations.tex}
+
+\chapter*{}
+\begin{center}
+    {\fontsize{20}{24}\selectfont\bfseries MỞ ĐẦU}
+\end{center}
+\addcontentsline{toc}{chapter}{Mở đầu}
+\markboth{}{}
+\vspace{1cm} 
+\input{introduction}
+
+\pagestyle{fancy} 
+\fancyhead[L]{\itshape \nouppercase{\rightmark}}
+
+\chapter{Cơ sở toán học của xác suất lượng tử}
+\input{chapter_1}
+
+\chapter{Qubit, cổng lượng tử và mạch tính toán}
+\input{chapter_2}
+
+\chapter{Thuật toán Deutsch-Jozsa: Lý thuyết và mô phỏng số}
+\input{chapter_3}
+
+\chapter*{}
+\begin{center}
+    {\fontsize{20}{24}\selectfont\bfseries KẾT LUẬN}
+\end{center}
+\addcontentsline{toc}{chapter}{Kết luận}
+\vspace{1cm}
+\input{conclusion}
+
+\chapter*{}
+\addcontentsline{toc}{chapter}{Tài liệu tham khảo}
+\input{bibliography}
+
+\chapter*{}
+\begin{center}
+    {\fontsize{20}{24}\selectfont\bfseries PHỤ LỤC}
+\end{center}
+\addcontentsline{toc}{chapter}{Phụ lục}
+\fancyhead[L,R]{} % Xóa header cho phần phụ lục
+\input{appendices}
+
+\end{document}

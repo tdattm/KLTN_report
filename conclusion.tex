@@ -1,0 +1,24 @@
+Khóa luận này đã xây dựng một nội dung hoàn chỉnh từ nền tảng toán học
+đến phân tích lý thuyết và kiểm chứng thực nghiệm của thuật toán
+Deutsch--Jozsa. Cụ thể, Chương~1 thiết lập cơ sở toán học cần thiết gồm
+không gian Hilbert, các toán tử Hermitian và unitary, Định lý phổ, tích
+tensor và bốn tiên đề Dirac--von Neumann, trong đó cơ chế giao thoa lượng
+tử được phân tích từ nền tảng tiên đề và theo dõi xuyên suốt đến bước cuối
+của thuật toán. Chương~2 triển khai cơ sở toán học thành mô hình tính toán
+lượng tử cụ thể qua qubit, các cổng lượng tử cơ bản và cấu trúc mạch.
+Chương~3 phát biểu bài toán Deutsch--Jozsa, chứng minh chặt chẽ kết quả
+trung tâm rằng thuật toán phân biệt hàm hằng và hàm cân bằng với xác suất
+$1$ trong đúng một lần truy vấn oracle, và kiểm chứng kết quả đó qua mô
+phỏng số với Qiskit cho $n = 1, \ldots, 5$.
+
+Bên cạnh những kết quả đạt được, khóa luận còn một số hạn chế cần thừa
+nhận. Về phạm vi thuật toán, Deutsch--Jozsa giải quyết một bài toán có điều
+kiện và ưu thế tuyệt đối $O(1)$ so với $O(2^{n-1})$ chỉ đúng với thuật
+toán cổ điển tất định; nếu cho phép xác suất, ưu thế này thu hẹp đáng kể.
+
+Trong tương lai, đề tài có thể được phát triển theo hướng mở rộng sang các
+thuật toán lượng tử có ứng dụng thực tiễn hơn. Cụ thể, thuật toán Grover
+khai thác cùng cơ chế giao thoa để tìm kiếm với độ phức tạp $O(\sqrt{N})$,
+biến đổi Fourier lượng tử (QFT) tổng quát hóa Hadamard transform đã xây
+dựng trong khóa luận, và thuật toán Shor sử dụng QFT để phân tích nhân tử
+với hiệu quả vượt trội so với mọi thuật toán cổ điển đã biết.

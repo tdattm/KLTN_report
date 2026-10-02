@@ -1,0 +1,475 @@
+Chương này xây dựng nền tảng toán học cho phần còn lại của khóa luận theo ba phần kế tiếp: mục~\ref{sec:hilbert} giới thiệu không gian Hilbert và ký hiệu Dirac như ngôn ngữ toán học nền tảng; mục~\ref{sec:operators} trình bày về lý thuyết toán tử tuyến tính như Hermitian, unitary, định lý phổ và tích tensor, đây đều là các công cụ sẽ được dùng trực tiếp trong hệ tiên đề và mạch lượng tử; mục~\ref{sec:postulates} gắn ý nghĩa vật lý cho các công cụ đại số đó qua bốn tiên đề Dirac--von Neumann. Để xây dựng nên cấu trúc toán học chặt chẽ này, nội dung của chương được tham khảo chính từ giáo trình cơ sở của Nielsen \& Chuang~\cite{ref5} và tài liệu giảng dạy về tính toán lượng tử của Maassen~\cite{ref4}.
+
+\section{Không gian Hilbert và ký hiệu Dirac}
+\label{sec:hilbert}
+Để xây dựng một khung toán học vững chắc cho cơ học lượng tử và lý thuyết thông tin lượng tử, các trạng thái vật lý và quá trình đo lường được mô hình hóa dựa trên lý thuyết không gian Hilbert, kết hợp với hệ thống ký hiệu bra-ket do Paul Dirac đề xuất. Hai công cụ này cùng nhau tạo thành ngôn ngữ toán học chuẩn hóa của vật lý lượng tử hiện đại.
+
+\begin{definition}[Không gian Hilbert] 
+Không gian Hilbert $\mathcal{H}$ được định nghĩa là một không gian vectơ trên trường số phức $\mathbb{C}$, được trang bị một phép tích trong (inner product) Hermite xác định dương. Phép tích trong là một ánh xạ từ $\mathcal{H} \times \mathcal{H}$ sang $\mathbb{C}$, biến đổi hai vectơ thành một đại lượng vô hướng phức. Đối với các vectơ tùy ý $|\psi\rangle, |\chi\rangle, |\phi\rangle \in \mathcal{H}$ và các đại lượng vô hướng $\alpha, \beta \in \mathbb{C}$, phép tích trong phải thỏa mãn ba tiên đề sau:
+\begin{itemize}
+    \item Tính tuyến tính đối với đối số thứ hai: $\langle \psi | (\alpha \chi + \beta \phi) \rangle = \alpha \langle \psi | \chi \rangle + \beta \langle \psi | \phi \rangle$.
+    \item Tính đối xứng liên hợp Hermite: $\langle \psi | \chi \rangle = \overline{\langle \chi | \psi \rangle}$, trong đó dấu gạch ngang biểu diễn phép lấy liên hợp phức.
+    \item Tính xác định dương: $\langle \psi | \psi \rangle \ge 0$, và đẳng thức xảy ra khi và chỉ khi $\psi$ là vectơ không.
+\end{itemize}
+\end{definition}
+
+\begin{remark} [Chuẩn và Tính đầy đủ] Từ định nghĩa tích trong, ta rút ra hai tính chất nền tảng của không gian Hilbert:
+\begin{enumerate}
+    \item Chuẩn (Norm): Từ tích trong, chuẩn của một vectơ $|\psi\rangle$ được định nghĩa bằng $\|\psi\| = \sqrt{\langle \psi | \psi \rangle}$, đặc trưng cho ``độ dài" hình học của vectơ đó trong không gian.
+    
+    \item Tính đầy đủ (Completeness): Đối với các hệ vô hạn chiều, không gian tích trong phải thỏa mãn thêm điều kiện mọi dãy Cauchy trong $\mathcal{H}$ đều hội tụ về một phần tử thuộc chính $\mathcal{H}$. Nếu điều kiện này không được đáp ứng, cấu trúc toán học chỉ được gọi là không gian tiền-Hilbert (pre-Hilbert space). Trong bối cảnh tính toán và thông tin lượng tử hữu hạn chiều, không gian Hilbert đồng nhất với không gian vectơ phức $\mathbb{C}^n$, nơi phép tích trong thông thường luôn đảm bảo tính đầy đủ.
+\end{enumerate}
+\end{remark}
+
+\begin{convention}[Ký hiệu Dirac] 
+Hệ thống ký hiệu Dirac phân tách cấu trúc vectơ thành hai thành phần đối ngẫu nhằm biểu diễn các trạng thái vật lý. Cụ thể, hai thành phần này bao gồm:
+\begin{itemize}
+    \item Ký hiệu ket $|\psi\rangle$: đại diện cho một vectơ trạng thái trong $\mathcal{H}$; dưới dạng ma trận, đây là một vectơ cột chứa các biên độ xác suất phức.
+    \item Ký hiệu bra $\langle\psi|$: đại diện cho vectơ đối ngẫu trong không gian đối ngẫu $\mathcal{H}^*$, hoạt động như một toán tử tuyến tính ánh xạ từ $\mathcal{H}$ sang $\mathbb{C}$ thông qua $\langle \psi | (|\chi\rangle) \equiv \langle \psi | \chi \rangle$; dưới dạng ma trận, bra là vectơ hàng thu được bằng phép chuyển vị liên hợp của ket tương ứng.
+\end{itemize}
+Sự kết hợp $\langle \psi | \chi \rangle$ chính là tích trong giữa hai vectơ trạng thái.
+\end{convention}
+
+\begin{definition}[Hệ trực chuẩn và cơ sở] 
+Để biểu diễn các trạng thái cụ thể trong $\mathcal{H}$, cần thiết lập một cơ sở trực chuẩn. Một tập hợp các vectơ $\{|i\rangle\}$ được gọi là hệ trực chuẩn nếu thỏa mãn điều kiện $\langle i|j\rangle = \delta_{ij}$, với $\delta_{ij}$ là hàm Kronecker. 
+$$\langle i|j\rangle = \delta_{ij}=\begin{cases} 
+1 & \text{nếu } i = j \\ 
+0 & \text{nếu } i \neq j 
+\end{cases}$$
+\end{definition}
+
+\begin{remark} Đối với mọi không gian vectơ hữu hạn chiều, cơ sở trực chuẩn $\{|a\rangle\}$ (thỏa mãn $\langle i|j\rangle = \delta_{ij}$) luôn tồn tại và có thể được xây dựng từ một tập vectơ độc lập tuyến tính thông qua quá trình trực giao hóa Gram–Schmidt.
+\end{remark}
+
+\begin{proposition}
+Khi cơ sở đã được xác định, một trạng thái lượng tử tổng quát $|\psi\rangle$ được phân tích dưới dạng tổ hợp tuyến tính: 
+$$|\psi\rangle = \sum_{a \in A} \alpha_a |a\rangle$$ 
+Trong đó, $\alpha_a \in \mathbb{C}$ là các biên độ xác suất phức và $|\alpha_a|^2$ là xác suất để hệ được đo thấy ở trạng thái cơ sở $|a\rangle$ (theo diễn giải Born). Điều kiện chuẩn hóa $\|\psi\| = 1$ đảm bảo tổng các xác suất này bằng 1.
+\end{proposition}
+
+\begin{framed}
+\textbf{Ví dụ minh họa:} Ta xét một hệ có 3 trạng thái cơ sở trực chuẩn $|e_1\rangle, |e_2\rangle, |e_3\rangle$. Một trạng thái $|\psi\rangle$ có thể được biểu diễn như sau:
+$$|\psi\rangle = \frac{1}{\sqrt{2}}|e_1\rangle + \frac{1}{2}|e_2\rangle + \frac{1}{2}|e_3\rangle$$
+\begin{itemize}
+    \item Xác suất: Khi đo đạc, hệ có $50\%$ xác suất rơi vào trạng thái $|e_1\rangle$ ($|\frac{1}{\sqrt{2}}|^2 = 0.5$) và mỗi trạng thái $|e_2\rangle, |e_3\rangle$ chiếm $25\%$ xác suất ($|\frac{1}{2}|^2 = 0.25$).
+    \item Chuẩn hóa: Tổng các xác suất là $0.5 + 0.25 + 0.25 = 1$, thỏa mãn tính bảo toàn xác suất của hệ lượng tử.
+\end{itemize}
+\end{framed}
+
+Bên cạnh việc biểu diễn các trạng thái, hệ thống ký hiệu Dirac cung cấp một phương thức tự nhiên để định nghĩa các toán tử tuyến tính thông qua khái niệm tích ngoài (outer product). 
+\begin{definition}[Tích ngoài] Một tích ngoài, ký hiệu là $|w\rangle\langle v|$, thiết lập một toán tử ánh xạ giữa các không gian Hilbert, thực hiện biến đổi một vectơ $|v'\rangle$ theo quy tắc:
+$$(|w\rangle\langle v|)|v'\rangle = |w\rangle\langle v|v'\rangle$$
+Trong đó, tích nội $\langle v|v'\rangle$ đóng vai trò là một hệ số phức (biên độ) điều chỉnh độ lớn của vectơ kết quả $|w\rangle$.
+\end{definition}
+
+\begin{proposition}[Hệ thức đầy đủ] Với bất kỳ cơ sở trực chuẩn $\{|i\rangle\}$ nào, tổng các tích ngoài của tất cả các vectơ cơ sở tương đương với toán tử đồng nhất $I$:$$\sum_i |i\rangle\langle i| = I$$Hệ thức này cho phép phân tích một trạng thái lượng tử bất kỳ thành tổng các hình chiếu của nó trên tập cơ sở.
+\end{proposition}
+
+\begin{framed}
+\textbf{Ví dụ minh họa:} Ta xét không gian Hilbert hai chiều với cơ sở trực chuẩn $\{|0\rangle, |1\rangle\}$ (các trạng thái cơ sở này sẽ được thảo luận chi tiết trong chương sau dưới khái niệm qubit). Trong đó:$$|0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \quad |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$$
+\textit{Định nghĩa toán tử bằng tích ngoài:} xét toán tử hình chiếu lên trạng thái $|0\rangle$, ký hiệu là $\hat{P}_0 = |0\rangle\langle 0|$. Khi tác động lên một trạng thái bất kỳ $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$:
+$$\hat{P}_0 |\psi\rangle = (|0\rangle\langle 0|) (\alpha|0\rangle + \beta|1\rangle) = \alpha|0\rangle\langle 0|0\rangle + \beta|0\rangle\langle 0|1\rangle$$Vì $\langle 0|0\rangle = 1$ và $\langle 0|1\rangle = 0$, kết quả là $\alpha|0\rangle$. Toán tử đã \textit{lọc} và chỉ giữ lại thành phần của trạng thái $|0\rangle$.\\
+\textit{Chứng minh hệ thức đầy đủ:} các toán tử hình chiếu tương ứng được biểu diễn dưới dạng ma trận:
+$$|0\rangle\langle 0| = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \begin{pmatrix} 1 & 0 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}; \quad |1\rangle\langle 1| = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \begin{pmatrix} 0 & 1 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}$$
+Khi đó, hệ thức đầy đủ được thỏa mãn:$$|0\rangle\langle 0| + |1\rangle\langle 1| = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = I$$
+\end{framed}
+
+Trong cơ học lượng tử, tích ngoài đóng vai trò nền tảng để xây dựng các \textbf{toán tử chiếu trực giao} (orthogonal projection operators) -- một thành phần trung tâm trong tiên đề đo lường.
+\begin{definition}[Toán tử chiếu trực giao] Xét không gian con $k$ chiều được sinh bởi tập vectơ cơ sở trực chuẩn $\{|1\rangle, \dots, |k\rangle\}$, toán tử chiếu $P$ lên không gian này được định nghĩa bởi:
+\[
+P = \sum_{i=1}^k |i\rangle\langle i|
+\]
+\end{definition}
+
+\begin{proposition} Toán tử chiếu trực giao được đặc trưng bởi hai tính chất đại số:
+\begin{itemize}
+    \item \textbf{Tính Hermite ($P^\dagger = P$):} Đảm bảo phép chiếu là trực giao và các giá trị kỳ vọng (xác suất) luôn là số thực, đáp ứng yêu cầu của một đại lượng quan sát vật lý.
+    \item \textbf{Tính lũy đẳng ($P^2 = P$):} Phản ánh bản chất của phép chiếu; một trạng thái khi đã được chiếu vào không gian con sẽ không thay đổi dưới các tác động trùng lặp của cùng một toán tử.
+\end{itemize}
+Theo tiên đề đo lường, xác suất $\text{Pr}[X = s]$ thu được kết quả $s$ khi đo hệ đang ở trạng thái $|\psi\rangle$ được xác định bởi:
+\[
+\text{Pr}[X = s] = \langle\psi| P_s |\psi\rangle
+\]
+trong đó $P_s$ là toán tử chiếu tương ứng với kết quả $s$.
+\end{proposition}
+
+\begin{framed} \textbf{Ví dụ minh họa:} Xét qubit $|\psi\rangle = \frac{\sqrt{3}}{2}|0\rangle + \frac{1}{2}|1\rangle$. Xác suất thu được kết quả $0$ khi đo theo toán tử chiếu $P_0 = |0\rangle\langle 0|$ là:$$ \text{Pr}[0] = \langle\psi| P_0 |\psi\rangle = |\langle 0|\psi\rangle|^2 = \left(\frac{\sqrt{3}}{2}\right)^2 = \frac{3}{4} $$Về mặt hình học, xác suất này chính là bình phương độ dài hình chiếu của $|\psi\rangle$ lên phương của $|0\rangle$.
+\end{framed}
+
+\section{Toán tử tuyến tính: Hermitian, Unitary và định lý phổ}
+\label{sec:operators}
+Trong cơ học lượng tử, nếu các vectơ trạng thái mô tả trạng thái của một hệ vật lý, thì các toán tử tuyến tính đóng vai trò biểu diễn các đại lượng vật lý có thể quan sát được cũng như sự tiến hóa của hệ theo thời gian.
+\begin{definition}[Toán tử tuyến tính]
+Một toán tử tuyến tính $A$ trên không gian Hilbert $\mathcal{H}$ là một ánh xạ $A: \mathcal{H} \to \mathcal{H}$ thỏa mãn:
+$$ A(\alpha |\psi\rangle + \beta |\phi\rangle) = \alpha A|\psi\rangle + \beta A|\phi\rangle $$
+với mọi $|\psi\rangle, |\phi\rangle \in \mathcal{H}$ và $\alpha, \beta \in \mathbb{C}$.
+\end{definition}
+
+\begin{definition}[Toán tử liên hợp]
+Gắn liền với $A$ là toán tử liên hợp $A^\dagger$, xác định duy nhất qua hệ thức $\langle v | A | w \rangle = \langle A^\dagger v | w \rangle, \forall |v\rangle, |w\rangle \in \mathcal{H}$. Dựa trên khái niệm này, các lớp toán tử chủ chốt trong cơ học lượng tử được phân loại theo mối liên hệ giữa $A$ và $A^\dagger$, cụ thể là các toán tử tự liên hợp (biểu diễn đại lượng quan sát) và toán tử unitary (biểu diễn sự tiến hóa trạng thái).
+\end{definition}
+
+\begin{definition}[Toán tử Hermitian]
+Một toán tử tuyến tính $A$ trên không gian Hilbert $\mathcal{H}$ được gọi là
+\textbf{Hermitian} (hay \textbf{tự liên hợp}) nếu
+$$A^\dagger = A,$$
+tức là $\langle v | A | w \rangle = \langle w | A | v \rangle^*$
+với mọi $|v\rangle, |w\rangle \in \mathcal{H}$.
+\end{definition}
+
+\begin{remark}
+Trong biểu diễn ma trận hữu hạn chiều, điều kiện $A^\dagger = A$ tương đương với
+$A_{ij} = A_{ji}^*$, nghĩa là ma trận của $A$ bằng chuyển vị liên hợp phức của chính nó.\\
+Chẳng hạn, ma trận Pauli $\sigma_z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$
+là Hermitian vì $\sigma_z^\dagger = \sigma_z$.
+\end{remark}
+
+\begin{proposition}[Phổ của toán tử Hermitian]
+\label{prop:hermitian-spectrum}
+Nếu $A$ là một toán tử Hermitian trên không gian Hilbert $\mathcal{H}$, thì:
+\begin{enumerate}[label=(\roman*)]
+    \item Mọi giá trị riêng của $A$ đều là số thực.
+    \item Các vectơ riêng ứng với các giá trị riêng phân biệt trực giao với nhau.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\textit{(i)} Giả sử $A|\psi\rangle = \lambda|\psi\rangle$ với $|\psi\rangle \neq 0$. Ta có:
+$$\lambda \langle\psi|\psi\rangle = \langle\psi|A|\psi\rangle
+= \langle A^\dagger\psi|\psi\rangle = \langle A\psi|\psi\rangle
+= \lambda^*\langle\psi|\psi\rangle,$$
+suy ra $\lambda = \lambda^*$, tức $\lambda \in \mathbb{R}$.
+
+\textit{(ii)} Giả sử $A|\psi\rangle = \lambda|\psi\rangle$ và $A|\phi\rangle = \mu|\phi\rangle$
+với $\lambda \neq \mu$. Khi đó:
+$$\lambda\langle\phi|\psi\rangle = \langle\phi|A|\psi\rangle
+= \langle A\phi|\psi\rangle = \mu\langle\phi|\psi\rangle,$$
+trong đó bước giữa dùng $A^\dagger = A$ và bước cuối dùng tính thực của $\mu$.
+Do $\lambda \neq \mu$, suy ra $\langle\phi|\psi\rangle = 0$.
+\end{proof}
+
+\begin{remark}
+\label{remark:bornRule}
+Tính chất (i) là lý do vật lý cốt lõi để các đại lượng quan sát được như năng lượng,
+xung lượng hay vị trí được biểu diễn bởi toán tử Hermitian: kết quả của bất kỳ phép
+đo nào đều phải là một số thực, phù hợp với thực nghiệm.
+\end{remark}
+
+
+Từ Mệnh đề~\ref{prop:hermitian-spectrum}, khi hệ ở trạng thái $|\psi\rangle$,
+xác suất thu được giá trị riêng $\lambda$ khi đo đại lượng ứng với toán tử Hermitian
+$X$ -- gọi là \textbf{quy tắc Born} -- được cho bởi
+\begin{equation}
+    \Pr[X = \lambda] = \langle\psi| P_\lambda |\psi\rangle,
+    \label{eq:born-rule}
+\end{equation}
+trong đó $P_\lambda = |\lambda\rangle\langle\lambda|$ là toán tử chiếu trực giao lên
+không gian con riêng ứng với $\lambda$. Từ đó, \textbf{giá trị kỳ vọng} của $X$
+trên trạng thái $|\psi\rangle$ là
+\begin{equation}
+    \langle X \rangle
+    = \sum_\lambda \lambda\,\Pr[X = \lambda]
+    = \sum_\lambda \lambda\,\langle\psi| P_\lambda |\psi\rangle
+    = \langle\psi| X |\psi\rangle,
+    \label{eq:expectation}
+\end{equation}
+trong đó bước cuối sử dụng khai triển $X = \sum_\lambda \lambda P_\lambda$,
+là một hệ quả trực tiếp sẽ được chứng minh ở mục Định lý phổ.
+
+\begin{definition}[Toán tử Unitary]
+Một toán tử tuyến tính $U$ trên không gian Hilbert $\mathcal{H}$ được gọi là
+\textbf{unitary} nếu
+$$U U^\dagger = U^\dagger U = I,$$
+tức là toán tử nghịch đảo của $U$ chính là liên hợp của nó: $U^{-1} = U^\dagger$.
+\end{definition}
+
+\begin{proposition}[Bảo toàn cấu trúc hình học]
+\label{prop:unitary-preserve}
+Nếu $U$ là toán tử unitary thì $U$ bảo toàn tích trong:
+$$\langle U\phi \mid U\psi \rangle = \langle \phi \mid \psi \rangle,
+\quad \forall\, |\phi\rangle, |\psi\rangle \in \mathcal{H}.$$
+Đặc biệt, $U$ bảo toàn chuẩn: $\|U\psi\| = \|\psi\|$.
+\end{proposition}
+
+\begin{proof}
+Ta có $\langle U\phi \mid U\psi \rangle = \langle \phi \mid U^\dagger U \mid \psi \rangle
+= \langle \phi \mid I \mid \psi \rangle = \langle \phi \mid \psi \rangle$.
+Lấy $|\phi\rangle = |\psi\rangle$ suy ra ngay $\|U\psi\|^2 = \langle U\psi|U\psi\rangle
+= \langle\psi|\psi\rangle = \|\psi\|^2$.
+\end{proof}
+
+\begin{remark}
+Tính bảo toàn chuẩn là lý do vật lý để sự tiến hóa của một hệ lượng tử kín
+được mô tả bởi toán tử unitary: vì tổng xác suất trên mọi kết quả đo phải luôn bằng
+$1$, phép biến đổi trạng thái không được thay đổi chuẩn của vectơ trạng thái.
+Điều này dẫn đến tiên đề tiến hóa trong cơ học lượng tử:
+trạng thái $|\psi(t)\rangle$ của một hệ kín tại thời điểm $t$ liên hệ với trạng thái
+ban đầu qua $|\psi(t)\rangle = U(t)|\psi(0)\rangle$, trong đó $U(t)$ là toán tử unitary.
+\end{remark}
+
+\begin{example} Trong tính toán lượng tử, mỗi cổng lượng tử là một toán tử unitary tác động lên
+trạng thái qubit. các cổng lượng tử cơ bản như Pauli-$X$, Pauli-$Y$, Pauli-$Z$ và cổng Hadamard là những ví dụ cơ bản nhất:
+$$X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad
+  Y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}, \quad
+  Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}, \quad
+  H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}.$$
+Có thể kiểm tra trực tiếp rằng $XX^\dagger = YY^\dagger = ZZ^\dagger = HH^\dagger = I$.
+\end{example}
+
+\begin{definition}[Toán tử chuẩn tắc]
+Một toán tử tuyến tính $N$ trên không gian Hilbert $\mathcal{H}$ được gọi là
+\textbf{chuẩn tắc} (\textit{normal}) nếu nó giao hoán với liên hợp của chính nó:
+$$N N^\dagger = N^\dagger N.$$
+\end{definition}
+
+\begin{remark}
+Cả toán tử Hermitian ($A^\dagger = A$) lẫn toán tử unitary ($U^\dagger = U^{-1}$)
+đều là chuẩn tắc, và đây chính xác là lớp toán tử mà Định lý phổ áp dụng được.
+\end{remark}
+
+\begin{theorem}[Định lý phổ]
+\label{thm:spectral}
+Mọi toán tử chuẩn tắc $N$ trên không gian Hilbert hữu hạn chiều $\mathcal{H}$
+đều có thể chéo hóa trên một cơ sở trực chuẩn của $\mathcal{H}$.
+Cụ thể, tồn tại các giá trị riêng $\lambda_1, \dots, \lambda_n \in \mathbb{C}$
+và cơ sở trực chuẩn $\{|i\rangle\}_{i=1}^n$ của $\mathcal{H}$ sao cho
+$$N = \sum_{i=1}^n \lambda_i\, |i\rangle\langle i|.$$
+Nếu $N$ là Hermitian thì $\lambda_i \in \mathbb{R}$;
+nếu $N$ là unitary thì $|\lambda_i| = 1$.
+\end{theorem}
+
+\begin{remark}
+Khai triển $N = \sum_i \lambda_i |i\rangle\langle i|$ được gọi là
+\textbf{phân tích phổ} (\textit{spectral decomposition}) của $N$.
+Đặt $P_i = |i\rangle\langle i|$, các toán tử chiếu này thỏa mãn:
+\begin{enumerate}[label=(\roman*)]
+    \item \textit{Tính toàn vẹn}:
+          $\displaystyle\sum_{i=1}^n P_i = I$,
+    \item \textit{Tính trực giao}:
+          $P_i P_k = \delta_{ik}\, P_i$.
+\end{enumerate}
+Kết hợp với quy tắc Born, phân tích phổ cho phép
+tính giá trị kỳ vọng của toán tử Hermitian $X$ trực tiếp qua
+$$\langle\psi|X|\psi\rangle
+  = \sum_i \lambda_i\,\langle\psi|P_i|\psi\rangle
+  = \sum_i \lambda_i\,\Pr[X = \lambda_i].$$
+\end{remark}
+
+\begin{corollary}[Hàm của toán tử]
+\label{cor:function-of-operator}
+Cho $N = \sum_i \lambda_i |i\rangle\langle i|$ là phân tích phổ của toán tử chuẩn tắc
+$N$ và $f: \mathbb{C} \to \mathbb{C}$ là hàm tùy ý. Khi đó \textbf{hàm của toán tử}
+$f(N)$ được định nghĩa bằng
+$$f(N) \coloneqq \sum_i f(\lambda_i)\, |i\rangle\langle i|.$$
+\end{corollary}
+
+Cho đến đây, các toán tử Hermitian, unitary và Định lý phổ mới chỉ mô tả hành vi của \emph{một} hệ lượng tử đơn lẻ trên không gian Hilbert $\mathcal{H}$. Tuy nhiên, tính toán lượng tử và đặc biệt là thuật toán Deutsch--Jozsa ở Chương 3 đòi hỏi làm việc đồng thời với \emph{nhiều} qubit: thanh ghi $n$ qubit đầu vào cùng với một qubit bổ trợ, tất cả tiến hóa dưới tác động của một toán tử unitary duy nhất trên toàn hệ. Để mô tả không gian trạng thái của một hệ gồm nhiều hệ con như vậy, cơ học lượng tử sử dụng phép toán \textbf{tích tensor}. 
+\label{subsec:tensor}
+    
+    \begin{definition}[Tích tensor của không gian Hilbert]
+    Cho $\mathcal{H}_A$ và $\mathcal{H}_B$ là hai không gian Hilbert có số chiều lần lượt
+    là $m$ và $n$. \textbf{Tích tensor} $\mathcal{H}_A \otimes \mathcal{H}_B$ là không gian
+    Hilbert có số chiều $mn$, với cơ sở trực chuẩn được hình thành từ tất cả các tích
+    $$\{|a_i\rangle \otimes |b_j\rangle\}_{i=1,\dots,m;\; j=1,\dots,n},$$
+    trong đó $\{|a_i\rangle\}$ và $\{|b_j\rangle\}$ là cơ sở trực chuẩn của $\mathcal{H}_A$
+    và $\mathcal{H}_B$. Ký hiệu gọn $|a_i\rangle|b_j\rangle$ hoặc $|a_i b_j\rangle$
+    thường được dùng thay cho $|a_i\rangle \otimes |b_j\rangle$.
+    \end{definition}
+    
+    \begin{definition}[Tích tensor của toán tử]
+    Cho $A$ là toán tử trên $\mathcal{H}_A$ và $B$ là toán tử trên $\mathcal{H}_B$.
+    Toán tử tích tensor $A \otimes B$ là một toán tử tuyến tính xác định trên không gian $\mathcal{H}_A \otimes \mathcal{H}_B$, tác động lên các vectơ tích cơ bản $|v\rangle \otimes |w\rangle$ (với mọi $|v\rangle \in \mathcal{H}_A$ và $|w\rangle \in \mathcal{H}_B$) theo quy tắc:
+    $$(A \otimes B)(|v\rangle \otimes |w\rangle) = A|v\rangle \otimes B|w\rangle.$$
+    Khi một phép biến đổi chỉ tác động cục bộ lên một hệ con, toán tử tương ứng trên
+    toàn hệ có dạng $A \otimes I$ hoặc $I \otimes B$.
+    \end{definition}
+    
+    \begin{remark}
+    Liên quan đến tích tensor của không gian và toán tử, ta có hai tính chất quan trọng sau:
+    \begin{enumerate}[label=(\roman*)]
+        \item \textbf{Biểu diễn ma trận:} Trong biểu diễn ma trận, $A \otimes B$ được tính thông qua \textbf{tích Kronecker}. Nếu $A$ là ma trận $m \times m$ và $B$ là ma trận $n \times n$, thì $A \otimes B$ là ma trận $mn \times mn$ có dạng:
+        $$A \otimes B =
+        \begin{pmatrix}
+        A_{11}B & \cdots & A_{1m}B \\
+        \vdots  & \ddots & \vdots  \\
+        A_{m1}B & \cdots & A_{mm}B
+        \end{pmatrix}.$$
+    
+        \item \textbf{Trạng thái rối lượng tử:} Không phải mọi trạng thái trong $\mathcal{H}_A \otimes \mathcal{H}_B$ đều viết được dưới dạng tích $|\psi_A\rangle \otimes |\psi_B\rangle$. Khi điều đó không thể, hệ được gọi là ở \textbf{trạng thái rối} (\textit{entangled}).
+    \end{enumerate}
+    \end{remark}
+
+\section{Hệ tiên đề của cơ học lượng tử}
+\label{sec:postulates}
+
+Cơ học lượng tử không trực tiếp quy định các định luật cụ thể cho từng hệ vật lý,
+mà cung cấp một khuôn khổ toán học tổng quát để xây dựng các lý thuyết vật lý.
+Khuôn khổ này được triển khai thành bốn tiên đề, thường được gọi là hệ tiên đề
+Dirac--von Neumann \cite{ref5}, đóng vai trò cầu nối giữa cơ sở toán học của không
+gian Hilbert đã xây dựng ở các mục trước và các hiện tượng vật lý có thể quan sát
+được trong thực nghiệm. Tiên đề~1 xác định
+đối tượng mô tả (trạng thái), Tiên đề~2 mô tả động học (tiến hóa), Tiên đề~3 kết
+nối lý thuyết với thực nghiệm (phép đo), và Tiên đề~4 mở rộng khuôn khổ sang hệ
+nhiều thành phần -- nền tảng trực tiếp cho tính toán lượng tử đa qubit ở Chương~2.
+Bốn tiên đề không độc lập với nhau: Tiên đề~1 định nghĩa không gian mà Tiên đề~2
+và~3 hoạt động trên đó, còn Tiên đề~4 tổ hợp các bản sao của cấu trúc đó thành hệ
+lớn hơn.
+
+% ---------------------------------------------------------------
+\subsection*{Tiên đề 1 -- Trạng thái}
+
+\begin{postulate}[Trạng thái]
+Gắn liền với bất kỳ hệ vật lý cô lập nào là một không gian Hilbert phức $\mathcal{H}$,
+được gọi là \textbf{không gian trạng thái} của hệ. Trạng thái của hệ tại một thời điểm
+bất kỳ được mô tả hoàn toàn bởi một \textbf{vectơ đơn vị}
+$|\psi\rangle \in \mathcal{H}$, tức vectơ thỏa mãn $\langle\psi|\psi\rangle = 1$.
+\end{postulate}
+
+\begin{remark}
+Vì không gian trạng thái $\mathcal{H}$ là không gian vectơ tuyến tính, nếu
+$|\psi_1\rangle$ và $|\psi_2\rangle$ là hai trạng thái hợp lệ, thì mọi tổ hợp
+tuyến tính chuẩn hóa
+$$|\psi\rangle = \alpha|\psi_1\rangle + \beta|\psi_2\rangle,
+\quad \alpha,\beta \in \mathbb{C},\quad |\alpha|^2 + |\beta|^2 = 1,$$
+cũng là một trạng thái vật lý hoàn toàn hợp lệ. Đây là \textbf{nguyên lý chồng chất}
+(\textit{superposition principle}) -- hệ quả trực tiếp của cấu trúc tuyến tính của
+$\mathcal{H}$ \cite{ref3}.
+
+Ví dụ trực quan nhất là qubit với $\mathcal{H} = \mathbb{C}^2$ và cơ sở tính toán
+$\{|0\rangle, |1\rangle\}$: trạng thái tổng quát $|\psi\rangle = a|0\rangle + b|1\rangle$
+với $|a|^2 + |b|^2 = 1$ là một trạng thái chồng chất hợp lệ. Trong trạng thái này,
+hệ không mang một giá trị xác định cho đến khi phép đo được thực hiện -- đặc trưng
+cốt lõi phân biệt hệ lượng tử với hệ cổ điển. Khái niệm qubit và hình học của không
+gian trạng thái sẽ được trình bày chi tiết ở chương 2.
+\end{remark}
+
+% ---------------------------------------------------------------
+\subsection*{Tiên đề 2 -- Tiến hóa}
+
+\begin{postulate}[Tiến hóa]
+Sự biến đổi trạng thái của một hệ lượng tử \textbf{khép kín} (không tương tác với
+môi trường ngoài) được mô tả bởi một \textbf{toán tử unitary} $U$:
+$$|\psi(t_2)\rangle = U|\psi(t_1)\rangle.$$
+\end{postulate}
+
+\begin{remark}
+Tính unitary của $U$ đảm bảo bảo toàn chuẩn
+$\||\psi(t_2)\rangle\| = \||\psi(t_1)\rangle\|$, tức tổng xác suất của hệ không đổi
+theo thời gian -- nhất quán với Mệnh đề~\ref{prop:unitary-preserve}. Dưới dạng vi
+phân, tiên đề này tương đương với \textbf{phương trình Schrödinger}
+$$i\hbar \frac{\partial}{\partial t}|\psi(t)\rangle = H|\psi(t)\rangle,$$
+trong đó $\hbar$ là hằng số Planck rút gọn và $H$ là toán tử Hamilton -- toán tử
+Hermitian biểu diễn năng lượng toàn phần của hệ. Toán tử tiến hóa liên hệ với $H$
+qua hàm của toán tử (Hệ quả~\ref{cor:function-of-operator}):
+$$U(t) = e^{-itH/\hbar} = \sum_k e^{-i\lambda_k t/\hbar}|k\rangle\langle k|,$$
+trong đó $\{|k\rangle\}$ là cơ sở trực chuẩn gồm các vectơ riêng của $H$. Trong tính
+toán lượng tử, mỗi \textbf{cổng lượng tử} là một toán tử unitary tác động lên trạng
+thái qubit -- đây là biểu hiện rời rạc của tiên đề tiến hóa.
+\end{remark}
+
+% ---------------------------------------------------------------
+\subsection*{Tiên đề 3 -- Phép đo}
+
+\begin{postulate}[Phép đo]
+Một phép đo lượng tử được đặc trưng bởi một tập hợp các \textbf{toán tử đo lường}
+$\{M_m\}$ thỏa mãn hệ thức đầy đủ
+$$\sum_m M_m^\dagger M_m = I,$$
+trong đó chỉ số $m$ liệt kê các kết quả khả dĩ. Điều kiện này đảm bảo $\sum_m p(m) = 1$, tức tổng xác suất trên mọi kết quả bằng một -- nhất quán với yêu cầu bảo toàn xác suất. Nếu trạng thái của hệ ngay trước
+phép đo là $|\psi\rangle$, thì:
+\begin{enumerate}[label=(\roman*)]
+    \item Xác suất thu được kết quả $m$ là
+          $p(m) = \langle\psi|M_m^\dagger M_m|\psi\rangle.$
+    \item Ngay sau khi thu được kết quả $m$, trạng thái của hệ \textbf{suy sụp}
+          (\textit{collapse}) về trạng thái mới: 
+          $$|\psi_m\rangle = \frac{M_m|\psi\rangle}{\sqrt{p(m)}}.$$
+\end{enumerate}
+\end{postulate}
+
+Khác với tiến hóa unitary mang tính liên tục và khả nghịch, phép đo mô tả sự tương
+tác giữa hệ và thiết bị quan sát, dẫn đến sự thay đổi trạng thái mang tính gián đoạn
+và không khả nghịch \cite{ref5}. Trong tính toán lượng tử, dạng phép đo thường dùng nhất là
+\textbf{phép đo chiếu} (\textit{projective measurement}, hay phép đo von Neumann),
+trong đó các toán tử $M_m$ là các toán tử chiếu trực giao $P_m$ thỏa mãn
+$P_m P_{m'} = \delta_{mm'} P_m$ và $P_m^\dagger = P_m$.  Khi đó, công thức xác suất thu được kết quả $m$ được rút gọn thành:
+$$p(m) = \langle \psi | P_m | \psi \rangle,$$
+nhất quán với~\eqref{eq:born-rule} của nhận xét \ref{remark:bornRule}.
+
+\begin{corollary}[Quy tắc Born -- dạng chuyển đổi trạng thái]
+\label{cor:born}
+Xác suất để hệ đang ở trạng thái $|\psi\rangle$ suy sụp về trạng thái $|\phi\rangle$
+sau phép đo chiếu $P_\phi = |\phi\rangle\langle\phi|$ là
+$$P = \langle\psi|P_\phi|\psi\rangle = |\langle\phi|\psi\rangle|^2.$$
+\end{corollary}
+
+\begin{example}[Phép đo chiếu trên qubit]
+Xét qubit ở trạng thái chồng chất $|\psi\rangle = \dfrac{\sqrt{3}}{2}|0\rangle
++ \dfrac{1}{2}|1\rangle$. Thực hiện phép đo chiếu trong cơ sở tính toán $\{|0\rangle, |1\rangle\}$ với các toán tử chiếu $P_0 = |0\rangle\langle 0|$ và $P_1 = |1\rangle\langle 1|$. Áp dụng hệ quả trên, ta thu được các xác suất::
+$$p(0) = |\langle 0|\psi\rangle|^2 = \frac{3}{4}, \qquad
+  p(1) = |\langle 1|\psi\rangle|^2 = \frac{1}{4}.$$
+Giả sử thiết bị đo ghi nhận kết quả $1$, trạng thái của hệ suy sụp về:
+$$|\psi'\rangle = \frac{P_1|\psi\rangle}{\sqrt{p(1)}}
+= \frac{\tfrac{1}{2}|1\rangle}{\tfrac{1}{2}} = |1\rangle.$$
+Toàn bộ đặc tính chồng chập ban đầu bị xóa bỏ, mọi phép đo tiếp theo trên trạng thái $|\psi'\rangle$ sẽ cho kết quả $1$ với xác suất $100\%$.
+\end{example}
+
+\begin{remark}
+Hệ quả~\ref{cor:born} cho thấy xác suất chuyển đổi từ trạng thái $|\psi\rangle$ về trạng thái $|\phi\rangle$ được đo lường bằng bình phương môđun của tích
+trong $\langle\phi|\psi\rangle$ -- đại lượng này được gọi là \textbf{biên độ xác suất}
+(\textit{probability amplitude}) \cite{ref4}. Điểm then chốt là biên độ xác suất là số
+\emph{phức}, không phải số thực không âm như trong xác suất cổ điển, dẫn đến hệ quả
+sau. Với trạng thái chồng chất $|\psi\rangle = \alpha|\psi_1\rangle + \beta|\psi_2\rangle$,
+xác suất quan sát được là
+$$P = |\alpha + \beta|^2 = |\alpha|^2 + |\beta|^2
+  + \underbrace{(\alpha^*\beta + \beta^*\alpha)}_{\text{hạng tử giao thoa}} = |\alpha|^2 + |\beta|^2
++ \underbrace{2\,\text{Re}(\alpha^*\beta)}_{\text{hạng tử giao thoa}}.$$
+Trong xác suất cổ điển, xác suất của hai biến cố độc lập cộng lại theo nghĩa đại
+số: $P = P_1 + P_2$. Trong cơ học lượng tử, thứ được cộng lại là các \emph{biên độ
+phức}, và xác suất mới được tính sau -- đây là nguồn gốc của \textbf{giao thoa lượng
+tử}. Hạng tử $2\,\text{Re}(\alpha^*\beta)$ có thể dương (\textit{giao thoa tăng
+cường}) hoặc âm (\textit{giao thoa triệt tiêu}) tùy theo pha tương đối giữa $\alpha$
+và $\beta$.
+
+Ví dụ: nếu $\alpha = \beta = \frac{1}{\sqrt{2}}$ (cùng pha), hạng tử giao thoa bằng
+$+1$ và $P = 2$, vượt xa mức cổ điển $|\alpha|^2 + |\beta|^2 = 1$. Ngược lại, nếu
+$\alpha = \frac{1}{\sqrt{2}}$ và $\beta = -\frac{1}{\sqrt{2}}$ (ngược pha hoàn toàn),
+hạng tử giao thoa bằng $-1$ và $P = 0$ -- xác suất triệt tiêu hoàn toàn, một kết
+quả không có tương đương trong lý thuyết xác suất cổ điển. Thuật toán Deutsch--Jozsa
+khai thác chính xác cơ chế này: cổng Hadamard tạo chồng chất đều trên tất cả $2^n$
+đầu vào, oracle $U_f$ mã hóa thông tin về $f$ vào các pha, và lần Hadamard thứ hai
+khuếch đại giao thoa để kết quả đo tập trung hoàn toàn vào một trạng thái duy nhất
+-- toàn bộ sẽ được phân tích chặt chẽ ở Chương 3.
+\end{remark}
+
+% ---------------------------------------------------------------
+\subsection*{Tiên đề 4 -- Hệ hợp thành}
+
+\begin{postulate}[Hệ hợp thành]
+Không gian trạng thái của một hệ vật lý gồm các hệ con $A$ và $B$ với không gian
+Hilbert $\mathcal{H}_A$ và $\mathcal{H}_B$ là tích tensor
+$\mathcal{H}_A \otimes \mathcal{H}_B$. Trạng thái của toàn hệ là một vectơ đơn vị
+trong không gian này.
+\end{postulate}
+
+\begin{remark}
+Cấu trúc toán học của tích tensor -- bao gồm định nghĩa không gian, toán tử tích
+tensor, tích Kronecker và trạng thái rối -- đã được trình bày đầy đủ ở phần cuối
+mục~\ref{subsec:tensor}. Tiên đề 4 bổ sung ý nghĩa \emph{vật lý}: không gian trạng thái của hệ hợp thành \emph{phải} là tích
+tensor, không phải tổng trực tiếp hay cấu trúc nào khác \cite{ref5}.\\
+Chẳng hạn, hệ
+hai qubit có không gian trạng thái $\mathbb{C}^2 \otimes \mathbb{C}^2 \cong
+\mathbb{C}^4$ với cơ sở tính toán $\{|00\rangle, |01\rangle, |10\rangle,
+|11\rangle\}$ -- đây là nền tảng trực tiếp của mục~2.1. Trong thuật toán
+Deutsch--Jozsa, tiên đề này xác định không gian làm việc là $(\mathbb{C}^2)^{\otimes
+n} \otimes \mathbb{C}^2$, với $n$ qubit đầu vào và một qubit bổ trợ, tất cả tiến hóa
+dưới tác động của toán tử unitary $U_f$ trên toàn hệ.
+\end{remark}
+
+\subsection*{Kết luận cuối Chương 1}
+Chương này đã xây dựng nền tảng toán học cần thiết cho phần còn lại của
+khóa luận theo bốn lớp kế tiếp: không gian Hilbert và ký hiệu Dirac như
+ngôn ngữ mô tả trạng thái; các toán tử Hermitian, unitary và Định lý phổ
+như công cụ phân tích cấu trúc; tích tensor như cơ sở mô tả hệ nhiều
+qubit; và bốn tiên đề Dirac--von Neumann như khuôn khổ gắn ý nghĩa vật lý
+cho toàn bộ nền tảng lý thuyết đó. Đặc biệt, cơ chế giao thoa lượng tử -- hệ quả của
+việc biên độ xác suất là số phức -- đã được thiết lập từ nền tảng tiên đề
+và sẽ được sử dụng xuyên suốt đến bước phân tích thuật toán ở Chương~3.
